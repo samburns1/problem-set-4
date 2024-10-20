@@ -18,7 +18,7 @@ def makeK(n):
 
 
 def bVector(n):
-    b = np.ones((n)) * (1 / (n**2))
+    b = np.ones(n) / (n**2)
     return b
 
 
@@ -26,9 +26,11 @@ eval = [10, 100, 1000]
 plt.style.use("Solarize_Light2")
 for e in eval:
     x = np.linalg.solve(makeK(e), bVector(e))
-    plt.plot(x, label=f"n = {e}")
-plt.ylabel("Soltuions, $x_i$")
-plt.xlabel("Index, i")
+    interval = np.linspace(0, 1, e)
+    plt.plot(interval, x, label=f"n = {e}")
+    # i am plotting my x values over the arbitrary interval (0:1). increasing n increases the number of evals over the same interval, which gets a better aprox
+plt.ylabel("Solutions, $x_i$")
+plt.xlabel("Interval (0 to 1)")
 plt.title(r"$K_n \vec{x}$ = $\vec{b}$ Solutions for $\vec{b}$ = $\frac{1}{n^2}$")
 plt.legend()
 
