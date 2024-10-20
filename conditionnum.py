@@ -16,16 +16,14 @@ def makeK(n):
     return kmat
 
 
-def eigenValues(n):
-    eigenvals = np.zeros(n)
-    kmat = makeK(n)
-    eigenvals, _ = np.linalg.eig(kmat)
-    # print(eigenvals)
+def eigenValues(kmat, subarr):
+    eigenvals = np.linalg.eigvalsh(kmat[:subarr, :subarr])
+    # eigvalsh for symmetric matrices as k matrix is symmetric - way more efficent
     return eigenvals
 
 
-def condNum(n):
-    eigenvals = eigenValues(n)
+def condNum(kmat, subarr):
+    eigenvals = eigenValues(kmat, subarr)
     min = np.min(eigenvals)
     max = np.max(eigenvals)
     cn = np.abs(max / min)
@@ -33,9 +31,13 @@ def condNum(n):
 
 
 def plotCn(n):
+    kmat = makeK(n)
     cnmatrix = np.zeros(n - 1)
     for i in range(2, n + 1):
-        cnmatrix[i - 2] = condNum(i)
+        cnmatrix[i - 2] = condNum(
+            kmat, i
+        )  # passes largest kmat, uses i to create a subarray
+        print("Progress: ", i)
     nvals = np.arange(2, n + 1)
     print(len(nvals))
     print(len(cnmatrix))
