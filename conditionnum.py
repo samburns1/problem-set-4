@@ -41,7 +41,12 @@ def plotCn(n):
     nvals = np.arange(2, n + 1)
     print(len(nvals))
     print(len(cnmatrix))
-    plt.plot(nvals, cnmatrix)
+    plt.style.use("Solarize_Light2")
+    plt.plot(nvals, cnmatrix, c="grey", linestyle="-", label="Condition Number")
+    plt.title("Condition Numbers of K-Matrix versus n")
+    plt.xlabel(f"n (from 2 to {n})")  # sprintf equivalent
+    plt.ylabel("Condition Number")
+    plt.legend(loc="upper center")
     plt.show()
 
 
